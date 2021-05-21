@@ -18,10 +18,13 @@ public class Arrays {
 		System.out.println(biggest);
 	}
 	//phương thức in ra số nhỏ thứ 2 trong mảng
-	public void printSecondSmallerInArray() {
-		@SuppressWarnings("unused")
-		int smallest = 0;
-		int smaller = 0;
+	public void printSecondSmallerInArray() {		
+		int smallest =intArr[0];
+		int smaller = intArr[1];
+		if(intArr[0] > intArr[1]) {
+			smallest = intArr[1];
+			smaller = intArr[0];
+		}
 		for (int i = 0; i < intArr.length - 1; i++) {
 			if (intArr[i] > intArr[i + 1]) {
 				smallest = intArr[i];
