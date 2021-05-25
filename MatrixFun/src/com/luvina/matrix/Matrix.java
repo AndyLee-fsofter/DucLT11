@@ -104,4 +104,150 @@ public class Matrix {
 		System.out.println("tổng các phần tử của tam giác thứ ba là :" + sum3);
 		System.out.println("tổng các phần tử của tam giác thứ tư là :" + sum4);
 	}
+	
+	public int findMax(int[] intArr) {
+		Arrays.sort(intArr);
+		int Max = intArr[intArr.length-1];
+		return Max;
+	}
+	
+	public int findSecondMax(int[] intArr) {
+		Arrays.sort(intArr);
+		int secondMax = intArr[intArr.length-2];
+		return secondMax;
+	}
+	
+	public int getIndex(int a, int[] intArr) {
+		int i = 0;
+		for (; i < intArr.length; i++) {
+			if(a == intArr[i]);
+			break;
+		}
+		return i;
+	}
+	
+	public void maxDiagonalLine() {
+		int[][] matrix = this.matrix;
+		for (int i = 0; i < matrix.length; i++) {
+			int max = findMax(matrix[i]);
+			int indexOfMax = getIndex(max, matrix[i]);
+			int secondMax = findSecondMax(matrix[i]);
+			int indexOfSecondMax = getIndex(secondMax, matrix[i]);
+			for (int j = 0; j < matrix.length; j++) {
+				if (i == j) {
+					int temp = matrix[i][j];
+					matrix[i][j] = max;
+					matrix[i][indexOfMax] = temp;
+				}
+				if ((i + j) == (matrix.length-1)) {
+					int temp = matrix[i][j];
+					matrix[i][j] = secondMax;
+					matrix[i][indexOfMax] = temp;
+				}
+			}
+			
+		}
+		//in ra ma trận đã đổi chỗ
+		for (int i = 0; i < matrix.length; i++) {
+			for (int j = 0; j < matrix.length; j++) {
+				System.out.print(matrix[i][j]+",");
+			}
+			System.out.println();
+		}
+		int sum = 0;
+		for (int i = 0; i < matrix.length; i++) {
+			for (int j = 0; j < matrix.length; j++) {
+				if (i == j) {
+					sum += matrix[i][j];
+				}
+				if (i+j == matrix.length-1) {
+					sum+= matrix[i][j];
+					break;
+				}
+			}
+		}
+		System.out.println("tổng 2 đường chéo là :" + sum);
+	}
+	
+	public int thirdMax() {
+		int[][] matrix = this.matrix;
+		int[] intArr = new int[matrix.length*matrix.length];
+		int index = 0;
+		//gán các phần tử của mảng 2 chiều thành mảng 1 chiều
+		for (int i = 0; i < matrix.length; i++) {
+			for (int j = 0; j < matrix.length; j++) {
+				intArr[index] = matrix[i][j];
+				index++;
+			}
+		}
+		//tiến hành sắp xếp mảng lại mảng 1 chiều
+		
+		Arrays.sort(intArr);
+		//khai báo biến thirdMax và secondMax
+		int secondMax = intArr[intArr.length-1];
+		int thirdMax = intArr[intArr.length-1];
+		
+		//tìm ra giá trị lớn thứ hai trong mảng 1 chiều vừa tạo
+		for (int i = intArr.length-1; i >=0; i--) {
+			if(intArr[i] < intArr[intArr.length-1]) {
+				secondMax = intArr[i];
+				break;
+			}
+		}
+		//tìm ra giá trị lớn thứ ba trong mảng 1 chiều vừa tạo
+				for (int i = intArr.length-1; i >=0; i--) {
+					if(intArr[i] < secondMax) {
+						thirdMax = intArr[i];
+						break;
+					}
+				}
+				System.out.println("phần tử có giá trị lớn thứ ba trong ma trận là :" + thirdMax);
+				System.out.println("các vị trí xuất hiện của nó là: ");
+				for (int i = 0; i < matrix.length; i++) {
+					for (int j = 0; j < matrix.length; j++) {
+						if (thirdMax == matrix[i][j]) {
+							System.out.println("vị trí: "+i+","+j);
+						}
+					}
+				}
+				return thirdMax;
+		
+		
+//		int max = matrix[0][0];
+//		int max1= matrix[0][0];
+//		int max2= matrix[0][0];
+//		for (int i = 0; i < matrix.length; i++) {
+//			for (int j = 0; j < matrix.length; j++) {
+//				if (max < matrix[i][j]) {
+//					max = matrix[i][j];
+//				}
+//			}
+//		}
+//		
+//		for (int i = 0; i < matrix.length; i++) {
+//			for (int j = 0; j < matrix.length; j++) {
+//				if (max1 < matrix[i][j] &&  matrix[i][j] < max) {
+//					max1 = matrix[i][j];
+//				}
+//			}
+//		}
+//		
+//		for (int i = 0; i < matrix.length; i++) {
+//			for (int j = 0; j < matrix.length; j++) {
+//				if (max2 < matrix[i][j] &&  matrix[i][j] < max1) {
+//					max2 = matrix[i][j];
+//				}
+//			}
+//		}
+//		System.out.println("phần tử có giá trị lớn thứ ba trong ma trận là :" + max2 +","+max1+","+max);
+//		System.out.println("các vị trí xuất hiện của nó là: ");
+//		for (int i = 0; i < matrix.length; i++) {
+//			for (int j = 0; j < matrix.length; j++) {
+//				if (max2 == matrix[i][j]) {
+//					System.out.println("vị trí: "+i+","+j);
+//				}
+//			}
+//		}
+//		return max2;
+	}
 }
